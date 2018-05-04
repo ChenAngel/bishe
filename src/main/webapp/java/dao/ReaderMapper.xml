@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper  namespace="dao.ReaderMapper">
+    <sql id="queryReaderParm">
+        <if test="reader.Proof_ID">
+            and #{reader.Proof_ID}
+        </if>
+        <if test="reader.name">
+            and #{reader.name}
+        </if>
+        <if test="reader.sex">
+            and #{reader.sex}
+        </if>
+        <if test="reader.birthday">
+            and #{reader.birthday}
+        </if>
+        <if test="reader.address">
+            and #{reader.address}
+        </if>
+        <if test="reader.keepmoney">
+            and #{reader.keepmoney}
+        </if>
+        <if test="reader.Tel_Number">
+            and #{reader.Tel_Number}
+        </if>
+        <if test="reader.ID_Number">
+            and #{reader.ID_Number}
+        </if>
+        <if test="reader.Now_Borrow_Amount">
+            and #{reader.Now_Borrow_Amount}
+        </if>
+        <if test="reader.readerName">
+            and #{reader.readerName}
+        </if>
+        <if test="reader.password">
+            and #{reader.password}
+        </if>
+
+    </sql>
+
+    <sql id="updateReaderParm">
+        <if test="reader.name">
+            #{reader.name},
+        </if>
+        <if test="reader.sex">
+            #{reader.sex},
+        </if>
+        <if test="reader.birthday">
+            #{reader.birthday},
+        </if>
+        <if test="reader.address">
+            #{reader.address},
+        </if>
+        <if test="reader.keepmoney">
+            #{reader.keepmoney},
+        </if>
+        <if test="reader.Tel_Number">
+            #{reader.Tel_Number},
+        </if>
+        <if test="reader.ID_Number">
+            #{reader.ID_Number},
+        </if>
+        <if test="reader.Now_Borrow_Amount">
+            #{reader.Now_Borrow_Amount},
+        </if>
+        <if test="reader.readerName">
+           #{reader.readerName},
+        </if>
+        <if test="reader.password">
+            #{reader.password}
+        </if>
+
+    </sql>
+
+    <insert id="addReader" parameterType="model.Reader">
+        insert into Reader values (#{reader.Proof_ID},
+        #{reader.name},#{reader.sex},#{reader.birthday},#{reader.address},#{reader.keepmoney},#{reader.Tel_Number},#{reader.ID_Number},
+        #{reader.Now_Borrow_Amount},#{reader.readerName},#{reader.password}
+        )
+    </insert>
+    <select id="check" parameterType="String" resultType="model.Reader">
+        select * from Reader where name = #{username};
+    </select>
+
+    <delete id="delReader" parameterType="String">
+        delete from Reader where Proof_ID = #{id};
+    </delete>
+    <update id="updateReader" parameterType="model.Reader">
+        update Reader set <include refid="updateReaderParm"></include> where Proof_ID = #{reader.Proof_ID}
+    </update>
+
+    <select id="findReader" resultType="model.Reader">
+        select * from Reader where 1=1 <include refid="queryReaderParm"></include>
+    </select>
+</mapper>
